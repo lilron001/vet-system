@@ -1,2 +1,2 @@
 # vet-system
-this was my project before
+This was my project during my first semester, and it uses notepad as its database.
