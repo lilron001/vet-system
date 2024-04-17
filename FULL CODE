@@ -1,0 +1,608 @@
+import java.awt.Font;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;                                
+import javax.swing.border.Border;
+import java.awt.Color;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import static java.nio.file.StandardOpenOption.*;
+
+
+
+
+
+
+/*             S T I L L     P E N D I N G      N E E D E D     T O     F I N I S H     T O M   
+                  
+                                       E D I T  H E R E    
+                                                                                 */
+
+class mainlogin
+{
+   public static void main(String[] args)
+   {
+      idandpass idp = new idandpass();
+      
+      loginpage log = new loginpage(idp.getLoginInfo());
+   
+   
+   }
+}
+
+/*                      C L A S S   F O R    T H E   L O G I N P A G E
+                     
+                                       E D I T  H E R E    
+                                                                                 */
+
+
+class loginpage implements ActionListener
+{
+
+   Border d = BorderFactory.createLineBorder(Color.gray,8);
+   ImageIcon e = new ImageIcon("final.gif");
+   ImageIcon ei = new ImageIcon("catdoc.png");
+   //ImageIcon ef = new ImageIcon("cutcat.gif");
+   JLabel l = new JLabel();
+   JFrame f = new JFrame();
+   JButton b = new JButton("Login"); //login button
+   JButton r = new JButton("Reset"); //Reset button
+   JTextField u = new JTextField(); //user
+   JPasswordField p = new JPasswordField(); //password
+   JLabel user = new JLabel("User: "); //JLabel for user
+   JLabel pass = new JLabel("Pass: ");//JLabel for password
+   JLabel tr = new JLabel();
+   
+   
+   HashMap<String,String> log = new HashMap<String,String>(); //Name of MY HASHMAP
+   
+   loginpage(HashMap<String,String> lig)      //setting lig hashmap as a loginpage
+   {
+   log= lig; //turning HASHMAP log to lig
+   
+   
+   
+   //LOGIN
+   b.setBounds(283,285,100,25);
+   b.addActionListener(this);
+   b.setFocusable(false);
+   
+   //USER
+   user.setBounds(240,225,75,25); //setting the user inside the frame
+   u.setBounds(285,225,200,25); //setting the field for the user to input his/her users account
+
+   
+   
+   //RESET BUTTON
+   r.setBounds(385,285,100,25);
+   r.addActionListener(this);
+   r.setFocusable(false);
+   
+   //PASSWORD 
+   pass.setBounds(240,255,75,25);; //setting the pass inside the frame
+   p.setBounds(285,255,200,25); //setting the filed for the uset to input his/her password
+   
+   
+   
+   //Label
+   l.setIcon(e); //CALLING THE IMAGE ICON
+   l.setBounds(0,0,750,650); //x , y , width , height  //THIS IS THE FRAME
+   /*l.setText("P R E S S    A N Y T H I N G   T O   C O N T I N U E ");
+   l.setVerticalTextPosition(JLabel.CENTER);
+   l.setHorizontalTextPosition(JLabel.CENTER);
+   l.setFont(new Font("Times New Roman",Font.PLAIN,25));
+   l.setForeground(new Color(0x123456));        //TEXT //SETS THE FONT COLOR */
+   
+   
+   
+   
+   
+   /*mess.setBounds(125,250,250,35); //
+   mess.setFont(new Font("Times New Roman",Font.PLAIN,25)); */
+   
+   f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   f.setTitle("Pets Clinic");
+   f.setVisible(true);
+   f.setSize(750,650);
+   f.setLayout(null);
+   f.setLocationRelativeTo(null);
+   f.setResizable(false);
+   f.setIconImage(ei.getImage());
+   f.add(user);
+   f.add(pass);
+   f.add(tr);
+   f.add(u);
+   f.add(p);
+   f.add(b);
+   f.add(r);
+   f.add(l);
+ 
+   
+   
+   }
+   
+   public void actionPerformed(ActionEvent e) //ALL THE ACTIONLISTENER METHODS HERE
+   {
+       
+         String su = ""; // declaring Staffs username for logging in
+         String up = ""; // declaring Users password for logging in
+   
+         if(e.getSource()==r) //FOR THE RESET BUTTON FUNCTION
+         {
+         u.setText("");
+         p.setText("");
+         }
+         
+         if(e.getSource()==b) //STUCK FINISH THIS TOM
+         {
+         su = u.getText();      //Staffs username for logging in
+         up = String.valueOf(p.getPassword());  //Users password for logging in
+         }
+         
+            if(log.containsKey(su))       //refer to our hashmap inside the containsKey() is the Staffs username
+            {
+               if(log.get(su).equals(up))        //refer our if method above hashmap inside the containsKey() is the Users password must be equal to our up or Users password
+                                                            //if it is equal to our password then it will continue
+               {
+               
+                              
+                                                             //OPTIONAL IF I WANT MY BACKGROUND TO CHANGE EVERYTIME I SUCCESFULY LOG IN
+                       /* mess.setIcon(ei); //CALLING THE IMAGE ICON
+                      tr.setBounds(0,0,516,543); //x , y , width , height  //THIS IS THE FRAME
+                      tr.setText("Succesfully Log In");
+                      tr.setVerticalTextPosition(JLabel.TOP);
+                      tr.setHorizontalTextPosition(JLabel.TOP);
+                      tr.setBorder(d);  */
+                       
+                     patientsSEMI lp = new patientsSEMI();
+                     f.dispose(); 
+               }  else {
+                           JOptionPane.showMessageDialog(null,"Incorrect Password");
+                      } 
+                      } else {
+                              JOptionPane.showMessageDialog(null,"Incorrect Username");
+                              }
+                    
+            }
+   
+   
+   }
+
+
+/*                      C L A S S   F O R    T H E   U S E R   A N D  P A S S W O R D S
+                     
+                                       E D I T  H E R E    
+                                                                                 */
+
+class idandpass
+{
+   HashMap<String,String> log = new HashMap<String,String>();
+   
+   idandpass()
+   {
+   
+   log.put("admin","admin123");
+ 
+   
+   }
+      protected HashMap getLoginInfo()
+      {
+      return log;
+      }
+   
+   
+}
+
+/*                      C L A S S   F O R    T H E     L A U N C H   P A G E  
+                     
+                                       E D I T  H E R E    
+                                                                                 */
+                                                                                 
+
+
+
+class patientsSEMI implements ActionListener {
+    
+
+   ImageIcon e = new ImageIcon("catdoc.png"); 
+   ImageIcon bk = new ImageIcon("frfr.gif"); 
+   
+   JFrame f = new JFrame();
+   JLabel lp = new JLabel();
+   JLabel pd = new JLabel("PATIENTS DESCRIPTION");
+   
+   //UPPER LABEL
+   JLabel client = new JLabel("Clients Name:");
+   JLabel pname = new JLabel("Patients Name:");
+   JLabel type = new JLabel("Animal Type:");
+   JLabel date = new JLabel("Date:");
+   //JTEXT UPPER
+   JTextField cn = new JTextField(); //for clients name or owner of the animal
+   JTextField pn = new JTextField(); //for patients name
+   JTextField tp = new JTextField(); //for type of animal
+   JTextField dt = new JTextField(); //for date
+    
+   
+   //MID LABEL
+   JLabel breed = new JLabel("Breed:");
+   JLabel weight = new JLabel("Weight:");
+   JLabel health = new JLabel("Health History:");  
+   JLabel vitamins = new JLabel("Vitamins Intake:");
+   JLabel symp = new JLabel("Symptoms:");
+   //JTEXT MID
+   
+   JTextField br = new JTextField(); //for breed
+   JTextField wt = new JTextField(); //for weight
+   JTextField hp = new JTextField(); //for health
+   JTextField vt = new JTextField(); //for Vitamins Intake
+   JTextField sp = new JTextField(); //for Symptoms
+   
+  
+   //LOWER LABEL
+   JLabel datein = new JLabel("Date In:");
+   JLabel release = new JLabel("Date Release:");
+   JLabel approve = new JLabel("Approved By:");
+   JLabel doctor = new JLabel("Dr.");
+   //JTEXT LOWER
+   JTextField di = new JTextField(); //for date in
+   JTextField rl = new JTextField(); //for date release
+   JTextField ap = new JTextField(); //for approval
+   JTextField dr = new JTextField(); //for the vet who handles
+   
+   //BUTTONS
+   JButton ad = new JButton("Add Patient");
+   JButton rs = new JButton("Reset Information");
+   JButton sr = new JButton("Open Search Window");
+   
+   
+   
+   
+    patientsSEMI() 
+    {
+         
+      pd.setBounds(230,20,1000,25);
+      pd.setFont(new Font("Times New Roman",Font.PLAIN,25));
+      pd.setForeground(new Color(0x123456));        //TEXT //SETS THE FONT COLOR */
+      
+                     //UPPER
+      client.setBounds(110,85,150,25); //CLIENT TEXT
+      cn.setBounds(350,85,300,25); //CLIENT JTEXT 
+      pname.setBounds(110,115,150,25); //PNAME TEXT
+      pn.setBounds(350,115,300,25); //PNAME JTEXT
+      type.setBounds(110,145,150,25); //TYPE TEXT
+      tp.setBounds(350,145,300,25); //TYPE JTEXT
+      date.setBounds(110,175,150,25); //DATE TEXT
+      dt.setBounds(350,175,300,25); //DATE JTEXT
+      
+                     //MIDDLE
+      breed.setBounds(110,225,150,25); //BREED TEXT
+      br.setBounds(350,225,300,25); //BREED JTEXT
+      weight.setBounds(110,255,150,25); //WEIGHT TEXT
+      wt.setBounds(350,255,300,25); //WEIGHT JTEXT
+      health.setBounds(110,285,150,25); //HEALTH TEXT
+      hp.setBounds(350,285,300,25);  //HEALTH JTEXT
+      vitamins.setBounds(110,315,150,25); //VITAMINS TEXT
+      vt.setBounds(350,315,300,25); //VITAMINS JTEXT
+      symp.setBounds(110,345,150,25); //SYMPTOMS TEXT
+      sp.setBounds(350,345,300,25); //SYMPTOMS JTEXT
+      
+      
+                     //LOWER
+      datein.setBounds(110,395,150,25); //DATE IN TEXT
+      di.setBounds(350,395,300,25); //DATE IN JTEXT
+      release.setBounds(110,425,150,25); //DATE RELEASE TEXT
+      rl.setBounds(350,425,300,25); //DATE RELEASE JTEXT
+      approve.setBounds(110,455,150,25); //APPROVED BY TEXT
+      ap.setBounds(350,455,300,25); //APPROVED BY JTEXT
+      doctor.setBounds(110,485,150,25); //DR. TEXT
+      dr.setBounds(350,485,300,25); //DR. JTEXT
+
+
+         //BACKGROUND
+         lp.setBounds(0,0,750,650);
+         lp.setIcon(bk);
+         
+        // BUTTONS
+        ad.setBounds(110,535,250,25);
+        ad.addActionListener(this);
+        ad.setFocusable(false);
+
+        rs.setBounds(420,535,250,25);
+        rs.addActionListener(this);
+        rs.setFocusable(false);
+
+        sr.setBounds(240, 570, 250, 25);
+        sr.addActionListener(this);
+        sr.setFocusable(false);
+        
+        
+        
+        
+         f.setTitle("Pets Clinic");
+         f.setSize(750,650);
+         f.setVisible(true);
+         f.setLocationRelativeTo(null);
+         f.setLayout(null);
+         f.setResizable(false);
+         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         f.setIconImage(e.getImage());
+         
+         f.add(pd);
+         
+         f.add(client);
+         f.add(pname);
+         f.add(type);
+         f.add(date);
+         
+         f.add(breed);
+         f.add(weight);
+         f.add(health);
+         f.add(vitamins);
+         f.add(symp);
+         
+         f.add(datein);
+         f.add(release);
+         f.add(approve);
+         f.add(doctor);
+         
+         //JTEXT FIELD HERE
+         
+         f.add(cn);
+         f.add(pn);
+         f.add(tp);
+         f.add(dt);
+         
+         f.add(br);
+         f.add(wt);
+         f.add(hp);
+         f.add(vt);
+         f.add(sp);
+         
+         f.add(di);
+         f.add(rl);
+         f.add(ap);
+         f.add(dr);
+
+
+        f.add(ad);
+        f.add(rs);
+        f.add(sr);
+        
+        f.add(lp);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == ad) {
+            // BUTTON FOR ADDING 
+            addPatientRecord();
+        }  if (e.getSource() == rs) {
+            // BUTTON FOR RESETING THE INFORMATION 
+            resetInformation();
+        }  if (e.getSource() == sr) {
+            // BUTTON FOR SEARCHING INFORMATION
+            searchInformation();
+        }
+    }
+
+    public void addPatientRecord() {
+    // GET THE PATIENT INFORMATION USNG getTEXT TO CALL JTEXTFIELD
+    String clientName = cn.getText();
+    String patientName = pn.getText();
+    String animalType = tp.getText();
+    String date = dt.getText();
+    String breed = br.getText();
+    String weight = wt.getText();
+    String healthHistory = hp.getText();
+    String vitaminsIntake = vt.getText();
+    String symptoms = sp.getText();
+    String dateIn = di.getText();
+    String dateRelease = rl.getText();
+    String approvedBy = ap.getText();
+    String vetName = dr.getText();
+
+    // Validate if any of the required fields are empty //CHECK IF NAAY ERROR
+    if (clientName.isEmpty() || patientName.isEmpty() || animalType.isEmpty() || date.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Format the patient information //CHECK IF THERES ERROR
+    String patientInfo = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s%n",
+            clientName, patientName, animalType, date, breed, weight, healthHistory,
+            vitaminsIntake, symptoms, dateIn, dateRelease, approvedBy, vetName, "-----------");
+
+    try {
+        // Open the file in append mode and write the patient information //CHECK THERES ERROR
+        Files.write(Paths.get("PatientRecords.txt"), patientInfo.getBytes(StandardCharsets.UTF_8), CREATE, APPEND);
+        JOptionPane.showMessageDialog(f, "Patient record added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // Clear the JTextFields after successful addition //CHECK PLEASE THERES ERROR
+        resetInformation(); //E CALL PARA MA RESET
+        } 
+    catch (IOException ex) //RECEIVE FILE IF ERROR NECESSARY 
+      {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(f, "Error writing to the file.", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+}
+
+    public void resetInformation() 
+    {
+        // Code to reset information 
+        cn.setText("");
+        pn.setText("");
+        tp.setText("");
+        dt.setText("");
+        br.setText("");
+        wt.setText("");
+        hp.setText("");
+        vt.setText("");
+        sp.setText("");
+        di.setText("");
+        rl.setText("");
+        ap.setText("");
+        dr.setText("");
+    }
+
+
+
+/*                      C L A S S   F O R    T H E   S E A R C H   I N F O R M A T I O N
+                     
+                                       E D I T  H E R E    
+                                                                                 */
+      //BLANGKO PA CJ NEED TO CODE THIS SUNDAY DEADLINE
+      
+      
+    public void searchInformation() 
+    {
+       SearchWindow ser = new SearchWindow();
+    }
+
+   
+}
+
+
+/*                      C L A S S   F O R    T H E   S E A R C H   W I N D O W
+                     
+                                       E D I T  H E R E    
+                                                                                 */
+
+class SearchWindow implements ActionListener {
+     File patientRecordsFile = new File("PatientRecords.txt");
+
+     ImageIcon ii = new ImageIcon("catdoc.png");
+     ImageIcon ie = new ImageIcon("reel.gif");
+     JFrame f = new JFrame();
+     JLabel l = new JLabel("S E A R C H    W I N D O W");
+     JLabel bc = new JLabel();
+     JLabel client = new JLabel("Client Name:");
+     JLabel patient = new JLabel("Patient Name:");
+     JLabel animal = new JLabel("Animal Type:");
+     JButton b = new JButton("Search");
+
+      //JTEXT
+     JTextField cl = new JTextField();
+     JTextField pt = new JTextField();
+     JTextField an = new JTextField();
+
+     JTextArea all = new JTextArea();
+     JScrollPane scroll = new JScrollPane(all);
+
+    SearchWindow() {
+    
+        //BACKGROUND IMAGE FOR THE SEARCHWINDOW
+        bc.setIcon(ie);
+        bc.setBounds(0,0,750,650);
+    
+    
+        l.setBounds(230, 10, 1000, 25);
+        l.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        l.setForeground(new Color(0x123456));
+        
+
+        client.setBounds(40, 80, 150, 25);
+        patient.setBounds(220, 80, 150, 25);
+        animal.setBounds(400, 80, 150, 25);
+
+        cl.setBounds(40, 100, 150, 25);
+        pt.setBounds(220, 100, 150, 25);
+        an.setBounds(400, 100, 150, 25);
+
+        b.setBounds(580, 100, 80, 25);
+        b.setFocusable(false);
+        b.addActionListener(this);
+         
+        //INFORMATION SHOULD APPEAR HERE 
+        scroll.setBounds(200, 150, 320, 400);
+
+        f.setTitle("Pets Clinic");
+        f.setSize(750,650);
+        f.setLayout(null);
+        f.setLocationRelativeTo(null);
+        f.setResizable(false);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+        f.setIconImage(ii.getImage());
+        
+
+        f.add(l);
+        f.add(client);
+        f.add(patient);
+        f.add(animal);
+        f.add(cl);
+        f.add(pt);
+        f.add(an);
+        f.add(b);
+        f.add(scroll);
+        f.add(bc);
+
+        
+    }
+
+    
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b) {
+            String clientName = cl.getText().trim();
+            String patientName = pt.getText().trim();
+            String animalType = an.getText().trim();
+
+            String result = searchRecord(clientName, patientName, animalType);
+
+            if (result != null) {
+                all.setText(formatResult(result));
+            } else {
+                all.setText("Record not found.");
+            }
+        }
+    }
+
+     String searchRecord(String clientName, String patientName, String animalType) {
+        try (Scanner input = new Scanner(patientRecordsFile)) {
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+                String[] recordArray = line.split(",");
+
+                if (recordArray.length >= 10 &&
+                        recordArray[0].trim().equals(clientName) &&
+                        recordArray[1].trim().equals(patientName) &&
+                        recordArray[2].trim().equals(animalType)) {
+                    return line;
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return null; // Return null if the record is not found
+    }
+
+     String formatResult(String result) {
+        String[] recordArray = result.split(",");
+        StringBuilder fr = new StringBuilder();
+
+        fr.append("Client Name: ").append(recordArray[0].trim()).append("\n");
+        fr.append("Patient Name: ").append(recordArray[1].trim()).append("\n");
+        fr.append("Animal Type: ").append(recordArray[2].trim()).append("\n");
+        fr.append("Date: ").append(recordArray[3].trim()).append("\n");
+        fr.append("Breed: ").append(recordArray[4].trim()).append("\n");
+        fr.append("Weight: ").append(recordArray[5].trim()).append("\n");
+        fr.append("Health History: ").append(recordArray[6].trim()).append("\n");
+        fr.append("Vitamins Intake: ").append(recordArray[7].trim()).append("\n");
+        fr.append("Symptoms: ").append(recordArray[8].trim()).append("\n");
+        fr.append("Date In: ").append(recordArray[9].trim()).append("\n");
+        fr.append("Date Release: ").append(recordArray[10].trim()).append("\n");
+        fr.append("Approved By: ").append(recordArray[11].trim()).append("\n");
+        fr.append("Dr. ").append(recordArray[12].trim()).append("\n");
+
+        return fr.toString();
+    }
+
+}
+                                 
+/*                      E N D    O  F   T H E  C O D E
+                     
+                              T H A N K   Y O U     
+                                                                                 */                  
